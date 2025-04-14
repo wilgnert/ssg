@@ -200,9 +200,9 @@ def markdown_to_html_node(markdown):
                     )
             case BlockType.BLOCKQUOTE:
                 block = re.sub(r"^>\n", ">  \n", block, 0, re.M)
-                my_lines = [ParentNode(tag="p", children=text_to_html_nodes(line)) for line in block.replace("> ", "").split("\n")]
+                # my_lines = [ParentNode(tag="p", children=text_to_html_nodes(line)) for line in block.replace("> ", "").split("\n")]
                 html_nodes.append(
-                    ParentNode(tag="blockquote", children=my_lines)
+                    ParentNode(tag="blockquote", children=text_to_html_nodes(block.replace("> ", "")))
                 )
             case BlockType.CODE:
                 html_nodes.append(
