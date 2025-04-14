@@ -92,9 +92,9 @@ def split_nodes_delimiter(nodes, delimiter, text_type):
 
 
 def text_to_text_nodes(text):
+    nodes = [TextNode(text, TextType.TEXT)]
     if text == "":
         return []
-    nodes = [TextNode(text, TextType.TEXT)]
     nodes = split_nodes_image(nodes)
     nodes = split_nodes_link(nodes)
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)

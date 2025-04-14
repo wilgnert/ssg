@@ -1,7 +1,6 @@
 import unittest
-from converter import *
-from htmlnode import LeafNode
-from textnode import TextNode, TextType
+from src.converter import *
+from src.textnode import TextNode, TextType
 
 
 class TestTextNodeToHtmlNode(unittest.TestCase):
@@ -52,7 +51,7 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         self.assertEqual(result.tag, "img")
         self.assertEqual(result.value, "")
         self.assertEqual(
-            result.props, {"href": "http://example.com/image.png", "alt": "Image Alt"}
+            result.props, {"src": "http://example.com/image.png", "alt": "Image Alt"}
         )
 
     def test_invalid_text_node_type(self):
@@ -365,6 +364,7 @@ class TestTextToTextNodes(unittest.TestCase):
 
     def test_plain_text(self):
         result = text_to_text_nodes("This is plain text.")
+        print(f"\n\n\n{result}\n\n\n")
         self.assertEqual(len(result), 1)
         self.assertListEqual(
             result, [TextNode(text="This is plain text.", text_type=TextType.TEXT)]
@@ -627,7 +627,7 @@ class TestMarkdownToHtml(unittest.TestCase):
         result = markdown_to_html(markdown)
         self.assertEqual(
             result,
-            '<div><p>This is an image <img href="http://example.com/image.png" alt="alt text"></img>.</p></div>',
+            '<div><p>This is an image <img src="http://example.com/image.png" alt="alt text"></img>.</p></div>',
         )
 
     def test_combined_text(self):
@@ -635,7 +635,7 @@ class TestMarkdownToHtml(unittest.TestCase):
         result = markdown_to_html(markdown)
         self.assertEqual(
             result,
-            '<div><p>This is <b>bold</b>, <i>italic</i>, <code>code</code>, a <a href="http://example.com">link</a>, and an image <img href="http://example.com/image.png" alt="alt text"></img>.</p></div>',
+            '<div><p>This is <b>bold</b>, <i>italic</i>, <code>code</code>, a <a href="http://example.com">link</a>, and an image <img src="http://example.com/image.png" alt="alt text"></img>.</p></div>',
         )
 
     def test_multiple_paragraphs(self):
