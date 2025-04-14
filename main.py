@@ -1,18 +1,21 @@
 import os
 import shutil
+import sys
 from src.generator import generate_page
 
 def prepare_dst(dst):
-  if not os.path.isdir(dst):
-    raise ValueError(f"{dst} is not a directory")  
   # wipe directory
-  shutil.rmtree(dst)
+  if os.path.exists(dst):
+    if os.path.isfile(dst):
+      raise Exception(f"Destination path {dst} is a file, not a directory")
+    shutil.rmtree(dst)
   os.makedirs(dst)
 
 
 def main():
+  basepath = sys.argv[1]
   src = "static/"
-  dst = "public/"
+  dst = "docs/"
   # copy tree from src to dst
   prepare_dst(dst)
   shutil.copytree(src, dst, dirs_exist_ok=True)
@@ -34,7 +37,8 @@ def main():
       generate_page(
         from_path=file,
         template_path=os.path.join(os.path.dirname(__file__), "static", "template.html"),
-        dest_path=dest_path
+        dest_path=dest_path,
+        basepath=basepath
       )
 
   
