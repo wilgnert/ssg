@@ -9,7 +9,7 @@ class TestTextType(unittest.TestCase):
         types = TextType.__members__
         expected = {
             "IMAGE",
-            "NORMAL",
+            "TEXT",
             "ITALIC",
             "LINK",
             "CODE",
@@ -22,7 +22,7 @@ class TestTextType(unittest.TestCase):
         type_values = [type for type in types]
         expected = {
             "IMAGE",
-            "NORMAL",
+            "TEXT",
             "ITALIC",
             "LINK",
             "CODE",
@@ -46,7 +46,7 @@ class TestTextNode(unittest.TestCase):
         ["a", "b"],
         [
             [TextNode("This is a text node", TextType.BOLD), TextNode("This is another text node", TextType.BOLD)],
-            [TextNode("This is a text node", TextType.NORMAL), TextNode("This is a text node", TextType.BOLD)],
+            [TextNode("This is a text node", TextType.TEXT), TextNode("This is a text node", TextType.BOLD)],
             [TextNode("This is a link node", TextType.LINK, "url"), TextNode("This is a link node", TextType.LINK, "link")],
             [TextNode("This is a image node", TextType.IMAGE, "url"), TextNode("This is a image node", TextType.IMAGE, "link")],
         ]
@@ -57,8 +57,8 @@ class TestTextNode(unittest.TestCase):
     @pass_arguments(
         ["a", "b"],
         [
-            [TextNode("a", TextType.NORMAL), TextNode("b", TextType.NORMAL)],
-            [TextNode("a", TextType.NORMAL), TextNode("a", TextType.BOLD)],
+            [TextNode("a", TextType.TEXT), TextNode("b", TextType.TEXT)],
+            [TextNode("a", TextType.TEXT), TextNode("a", TextType.BOLD)],
             [TextNode("a", TextType.LINK, "a"), TextNode("a", TextType.LINK, "b")],
             [TextNode("a", TextType.IMAGE, "a"), TextNode("a", TextType.IMAGE, "b")],
         ],

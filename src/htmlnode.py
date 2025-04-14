@@ -38,7 +38,7 @@ class LeafNode(HTMLNode):
         self, tag: str = None, value: str = None, props: dict[str, str] = None
     ):
         super().__init__(tag, value, None, props)
-        if not value:
+        if None is value:
             raise ValueError("LeafNode must have a value.")
 
     def to_html(self):
